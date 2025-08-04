@@ -1,0 +1,6 @@
+{
+  "name": "@library/books",
+  "version": "1.0.0",
+  "main": "entry-points/api/index.js",
+  "dependencies": {}
+}

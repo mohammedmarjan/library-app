@@ -1,0 +1,6 @@
+{
+  "name": "@library/users",
+  "version": "1.0.0",
+  "main": "entry-points/api/index.js",
+  "dependencies": {}
+}
