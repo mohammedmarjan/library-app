@@ -7,8 +7,7 @@ const connectToMongoDB = require('./config/db');
 
 // Load config values from environment or use defaults
 const PORT = process.env.PORT || 3000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/library';
-
+const MONGO_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/libraryDB';
 // Immediately Invoked Async Function Expression (IIFE)
 // This lets us use `await` at the top level
 (async () => {
