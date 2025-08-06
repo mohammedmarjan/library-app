@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 // Load configuration values
 const { port, mongoUri } = require('./config/env');
 
@@ -12,7 +10,6 @@ const connectToMongoDB = require('./config/db');
   try {
     // Connect to MongoDB
     await connectToMongoDB(mongoUri);
-    console.log('[INFO] MongoDB connected');
 
     // Create Express app
     const app = createApp();
