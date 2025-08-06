@@ -1,20 +1,23 @@
+// Load environment variables from .env file
 require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
 
-const app = express();
-app.use(express.json());
+// Import Express app setup and MongoDB connector
+const createApp = require('./loaders/express');
+const connectToMongoDB = require('./config/db');
 
-app.use('/users', require('./apps/users/entry-points/api'));
-app.use('/books', require('./apps/books/entry-points/api'));
-app.use('/borrowings', require('./apps/borrowings/entry-points/api'));
+// Load config values from environment or use defaults
+const PORT = process.env.PORT || 3000;
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/library';
 
-// Connect to MongoDB
-mongoose
-  .connect(process.env.MONGODB_URI)
+// Immediately Invoked Async Function Expression (IIFE)
+// This lets us use `await` at the top level
+(async () => {
+  // Connect to MongoDB
+  await connectToMongoDB(MONGO_URI);
 
-  .then(() => console.log('[INFO] MongoDB connected'))
-  .catch((err) => console.error('[ERROR] MongoDB failed:', err.message));
+  // Create and configure the Express app
+  const app = createApp();
 
-// We'll add routes here soon
-app.listen(3000, () => console.log('[INFO] Server running on http://localhost:3000'));
+  // Start the server only after DB connection is successful
+  app.listen(PORT, () => console.log(`[INFO] Server running on http://localhost:${PORT}`));
+})();
