@@ -1,23 +1,19 @@
 const express = require('express');
-const router = express.Router();
+const wrapRouter = require('../../../../utils/wrapRouter');
+
 const { createUser, getAllUsers } = require('../../domain/userService');
 
+const baseRouter = express.Router();
+const router = wrapRouter(baseRouter);
+
 router.post('/', async (req, res) => {
-  try {
-    const user = await createUser(req.body);
-    res.json(user);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  const user = await createUser(req.body);
+  res.json(user);
 });
 
 router.get('/', async (req, res) => {
-  try {
-    const users = await getAllUsers();
-    res.json(users);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  const users = await getAllUsers();
+  res.json(users);
 });
 
 module.exports = router;

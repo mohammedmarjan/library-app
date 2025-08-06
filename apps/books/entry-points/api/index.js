@@ -1,23 +1,18 @@
 const express = require('express');
-const router = express.Router();
+const wrapRouter = require('../../../../utils/wrapRouter');
 const { addBook, listBooks } = require('../../domain/bookService');
 
+const baseRouter = express.Router();
+const router = wrapRouter(baseRouter); 
+
 router.post('/', async (req, res) => {
-  try {
-    const book = await addBook(req.body);
-    res.json(book);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  const book = await addBook(req.body);
+  res.json(book);
 });
 
 router.get('/', async (req, res) => {
-  try {
-    const books = await listBooks();
-    res.json(books);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  const books = await listBooks();
+  res.json(books);
 });
 
 module.exports = router;
