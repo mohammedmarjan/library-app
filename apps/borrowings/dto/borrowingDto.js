@@ -1,17 +1,13 @@
-function calculateFine(dueDate, returnedAt) {
-  const today = returnedAt ? new Date(returnedAt) : new Date();
-  const overdueDays = Math.max(0, Math.ceil((today - new Date(dueDate)) / (1000 * 60 * 60 * 24)));
-  return overdueDays;
-}
+const { calculateFine } = require('../../shared/utils/fineUtils');
 
 function toBorrowingDto(borrowing) {
   return {
-    id: borrowing._id,
+    id: borrowing._id?.toString(),
     userId: borrowing.userId,
     bookId: borrowing.bookId,
     borrowedAt: borrowing.borrowedAt,
     dueDate: borrowing.dueDate,
-    returnedAt: borrowing.returnedAt,
+    returnedAt: borrowing.returnedAt || null,
     fineAmount: calculateFine(borrowing.dueDate, borrowing.returnedAt),
   };
 }

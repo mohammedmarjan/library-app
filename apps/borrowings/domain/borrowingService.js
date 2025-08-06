@@ -1,6 +1,7 @@
 const Borrowing = require('../data-access/borrowingModel');
 const { toBorrowingDto } = require('../dto/borrowingDto');
 const Book = require('../../books/data-access/bookModel');
+const { BORROW_DAYS } = require('../../shared/constants');
 
 async function borrowBook(userId, bookId) {
   const book = await Book.findById(bookId);
@@ -11,7 +12,7 @@ async function borrowBook(userId, bookId) {
 
   const borrowedAt = new Date();
   const dueDate = new Date(borrowedAt);
-  dueDate.setDate(dueDate.getDate() + 14); // 2 weeks later
+  dueDate.setDate(dueDate.getDate() + BORROW_DAYS); // 2 weeks later
 
   const borrowing = await Borrowing.create({
     userId,
