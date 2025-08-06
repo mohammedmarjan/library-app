@@ -11,6 +11,7 @@ const envFile = path.resolve(process.cwd(), `.env.${process.env.NODE_ENV || 'dev
 // If that file exists, load it (overrides shared values)
 if (fs.existsSync(envFile)) {
   dotenv.config({ path: envFile });
+  console.log(`[ENV] Loaded environment config from ${envFile}`);
 }
 
 /**
