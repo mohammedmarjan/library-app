@@ -1,5 +1,6 @@
 // Load configuration values
 const { port, mongoUri } = require('./config/env');
+const logger = require('./utils/logger');
 
 // Import Express app and MongoDB connector
 const createApp = require('./loaders/express');
@@ -16,10 +17,10 @@ const connectToMongoDB = require('./config/db');
 
     // Start listening on configured port
     app.listen(port, () => {
-      console.log(`[INFO] Server running on http://localhost:${port}`);
+      logger.info(`[INFO] Server running on http://localhost:${port}`);
     });
   } catch (err) {
-    console.error('[ERROR] Failed to start server:', err.message);
+    logger.error('[ERROR] Failed to start server:', err.message);
     process.exit(1); // Exit if startup fails
   }
 })();

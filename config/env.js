@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
+const logger = require('../utils/logger');
 
 // Load base .env file first (shared values like LOG_LEVEL, NODE_ENV, etc.)
 dotenv.config();
@@ -11,7 +12,7 @@ const envFile = path.resolve(process.cwd(), `.env.${process.env.NODE_ENV || 'dev
 // If that file exists, load it (overrides shared values)
 if (fs.existsSync(envFile)) {
   dotenv.config({ path: envFile });
-  console.log(`[ENV] Loaded environment config from ${envFile}`);
+  logger.info(`[ENV] Loaded environment config from ${envFile}`);
 }
 
 /**
