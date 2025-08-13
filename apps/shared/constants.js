@@ -1,3 +1,10 @@
+const ROLES = {
+  USER: 'user',
+  LIBRARIAN: 'librarian',
+  ADMIN: 'admin',
+  SUPER_ADMIN: 'superadmin',
+};
+
 // Time in days a user can borrow a book
 const BORROW_DAYS = 14;
 
@@ -15,4 +22,5 @@ module.exports = {
   BORROW_DAYS,
   FINE_PER_DAY,
   STATUS,
+  ROLES,
 };
